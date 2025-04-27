@@ -1,3 +1,5 @@
+@file:Suppress("MagicNumber", "FunctionNaming")
+
 package com.example.aichat
 
 import org.junit.Test

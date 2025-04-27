@@ -15,3 +15,5 @@ jobs:
         run: chmod +x gradlew
       - name: Lint and Build
         run: ./gradlew lintDebug detekt assembleDebug
+      - name: Run Tests
+        run: ./gradlew testDebugUnitTest

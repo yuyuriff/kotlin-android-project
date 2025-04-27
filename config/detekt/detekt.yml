@@ -5,11 +5,15 @@ naming:
   FunctionNaming:
     active: true
     excludes: 
-      - "**/*Composable.kt"
-      - "**/*Activity.kt"
-      - "**/*Screen.kt"
+      - '**/*Composable.kt'
+      - '**/*Activity.kt'
+      - '**/*Screen.kt'
 
 style:
+  MagicNumber:
+    active: true
+    excludes: 
+      - '**/ui/theme/*.kt'
   NewLineAtEndOfFile:
     active: true
   MaxLineLength:

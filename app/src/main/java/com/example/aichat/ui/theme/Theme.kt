@@ -1,3 +1,5 @@
+@file:Suppress("FunctionNaming")
+
 package com.example.aichat.ui.theme
 
 import android.app.Activity
