@@ -1,0 +1,2 @@
+* text=auto eol=lf
+*.{kt,java,gradle,kts,xml,yml,md} text eol=lf
