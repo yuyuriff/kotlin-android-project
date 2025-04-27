@@ -1,0 +1,20 @@
+build:
+  maxIssues: 0
+
+style:
+  NewLineAtEndOfFile:
+    active: true
+  MaxLineLength:
+    active: true
+    maxLineLength: 120
+  MagicNumber:
+    active: true
+
+complexity:
+  LongMethod:
+    active: true
+    threshold: 30
+  LongParameterList:
+    active: true
+    functionThreshold: 5
+    constructorThreshold: 5
