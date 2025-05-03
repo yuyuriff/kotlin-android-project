@@ -50,6 +50,7 @@ android {
 
 dependencies {
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.ui)
     implementation(libs.material3)
     implementation(libs.ui.tooling.preview)
