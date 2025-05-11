@@ -20,8 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
 
-import com.example.aichat.viewmodel.ChatViewModel
-import com.example.aichat.ui.components.MessageBubble
+import com.example.aichat.model.ChatViewModel
 
 @Composable
 fun ChatScreen(viewModel: ChatViewModel = viewModel()) {

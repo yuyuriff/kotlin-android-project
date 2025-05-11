@@ -1,4 +1,4 @@
-package com.example.aichat.viewmodel
+package com.example.aichat.model
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
@@ -7,11 +7,11 @@ import com.example.aichat.data.ChatMessage
 import com.example.aichat.data.MockAiApi
 import kotlinx.coroutines.launch
 
-class ChatViewModel : ViewModel() {
+class ChatViewModel(
+    private val aiRepository: AiRepository = AiRepository(MockAiApi())
+) : ViewModel() {
     private val _messages = mutableStateListOf<ChatMessage>()
     val messages: List<ChatMessage> = _messages
-
-    private val mockApi = MockAiApi()
 
     fun sendMessage(text: String) {
         if (text.isBlank()) return
@@ -19,7 +19,7 @@ class ChatViewModel : ViewModel() {
         _messages.add(ChatMessage(text, isUser = true))
 
         viewModelScope.launch {
-            val aiResponse = mockApi.getResponse(text)
+            val aiResponse = aiRepository.getAiResponse(text)
             _messages.add(ChatMessage(aiResponse, isUser = false))
         }
     }
