@@ -1,17 +1,34 @@
 package com.example.aichat.data
 
-import kotlinx.coroutines.delay
+import retrofit2.Response
+import retrofit2.http.Body
+import retrofit2.http.POST
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 interface AiApi {
-    suspend fun getResponse(userMessage: String): String
+    @POST("chat")
+    suspend fun getResponse(@Body request: ChatRequest): Response<ChatResponse>
 }
 
-class MockAiApi : AiApi {
-    override suspend fun getResponse(userMessage: String): String {
-        delay(1000)
-        return when (userMessage.lowercase()) {
-            "привет" -> "Здравствуйте!"
-            else -> "Я пока только учусь. Повторите вопрос иначе?"
-        }
+data class ChatRequest(
+    val prompt: String
+)
+
+data class ChatResponse(
+    val response: String
+)
+
+class OllamaAiApi(private val baseUrl: String) : AiApi {
+    private val retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(AiApi::class.java)
+    }
+
+    override suspend fun getResponse(request: ChatRequest): Response<ChatResponse> {
+        return retrofit.getResponse(request)
     }
 }

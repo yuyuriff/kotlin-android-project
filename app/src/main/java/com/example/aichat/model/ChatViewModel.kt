@@ -4,11 +4,11 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.aichat.data.ChatMessage
-import com.example.aichat.data.MockAiApi
+import com.example.aichat.data.OllamaAiApi
 import kotlinx.coroutines.launch
 
 class ChatViewModel(
-    private val aiRepository: AiRepository = AiRepository(MockAiApi())
+    private val aiRepository: AiRepository = AiRepository(OllamaAiApi("https://tricky-kiwis-try.loca.lt/api/ollama/"))
 ) : ViewModel() {
     private val _messages = mutableStateListOf<ChatMessage>()
     val messages: List<ChatMessage> = _messages
