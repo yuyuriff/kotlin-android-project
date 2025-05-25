@@ -2,7 +2,9 @@ package com.example.aichat
 
 import com.example.aichat.model.AiRepository
 import com.example.aichat.model.ChatViewModel
+import io.mockk.Runs
 import io.mockk.coEvery
+import io.mockk.just
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -54,9 +56,11 @@ class ChatViewModelTest {
 
     @Test
     fun clearMessagesTest() = runTest {
+        coEvery { mockRepository.clearContext() } just Runs
+
         viewModel.sendMessage("Test", "llama3:8b")
         testDispatcher.scheduler.advanceUntilIdle()
-        
+
         viewModel.clearMessages()
         assertTrue(viewModel.messages.isEmpty())
     }

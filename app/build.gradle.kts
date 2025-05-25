@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.ui.tooling.preview)
     debugImplementation(libs.ui.tooling)
+    debugImplementation(libs.ui.test.manifest)
 
     testImplementation(libs.junit)
     testImplementation(libs.mockk.mockk)

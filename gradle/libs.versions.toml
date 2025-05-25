@@ -20,6 +20,7 @@ mockkVersion = "1.13.8"
 retrofit = "2.11.0"
 ui = "1.8.0"
 uiTestJunit4 = "1.8.2"
+uiTestManifest = "1.8.2"
 uiTooling = "1.8.0"
 uiToolingPreview = "1.8.0"
 
@@ -49,6 +50,7 @@ mockk-mockk = { module = "io.mockk:mockk", version.ref = "mockkVersion" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 ui = { module = "androidx.compose.ui:ui", version.ref = "ui" }
 ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "uiTestJunit4" }
+ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "uiTestManifest" }
 ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "uiTooling" }
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
 
