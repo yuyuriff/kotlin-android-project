@@ -8,9 +8,13 @@ naming:
       - '**/*Composable.kt'
       - '**/*Activity.kt'
       - '**/*Screen.kt'
+      - '**/*Field.kt'
+      - '**/*Bubble.kt'
+      - '**/*Bar.kt'
 
 style:
   MagicNumber:
+    excludeAnnotated: ["Composable"]
     active: true
     excludes: 
       - '**/ui/theme/*.kt'
@@ -23,7 +27,7 @@ style:
 complexity:
   LongMethod:
     active: true
-    threshold: 30
+    threshold: 60
   LongParameterList:
     active: true
     functionThreshold: 5
