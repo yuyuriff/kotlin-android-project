@@ -57,7 +57,11 @@ dependencies {
     debugImplementation(libs.ui.tooling)
 
     testImplementation(libs.junit)
+    testImplementation(libs.mockk.mockk)
+    testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.junit)
+    testImplementation(libs.ui.test.junit4)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -65,4 +69,5 @@ dependencies {
 
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    testImplementation(kotlin("test"))
 }

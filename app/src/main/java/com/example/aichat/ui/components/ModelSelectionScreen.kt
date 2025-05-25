@@ -28,9 +28,10 @@ import com.example.aichat.model.availableModels
 
 @Composable
 fun ModelSelectionScreen(
+    models: List<ModelInfo> = availableModels,
     onModelSelected: (ModelInfo) -> Unit
 ) {
-    var selectedModel by remember { mutableStateOf(availableModels[0]) }
+    var selectedModel by remember { mutableStateOf(models[0]) }
 
     Column(
         modifier = Modifier
@@ -48,7 +49,7 @@ fun ModelSelectionScreen(
         LazyColumn(
             modifier = Modifier.weight(1f)
         ) {
-            items(availableModels) { model ->
+            items(models) { model ->
                 ModelSelectionItem(
                     model = model,
                     isSelected = model == selectedModel,
