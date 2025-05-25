@@ -4,6 +4,7 @@ import com.example.aichat.data.AiApi
 import com.example.aichat.data.ChatRequest
 import java.io.IOException
 import java.net.ConnectException
+import java.net.HttpURLConnection
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
@@ -28,7 +29,7 @@ class AiRepository(private val aiApi: AiApi) {
                     currentContext = response.body()?.context ?: emptyList()
                     response.body()?.response ?: "Empty response from the server"
                 }
-                response.code() == 503 -> {
+                response.code() == HttpURLConnection.HTTP_UNAVAILABLE -> {
                     "Server is temporarily unavailable. Please try again later."
                 }
                 else -> {

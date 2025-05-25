@@ -10,7 +10,9 @@ import com.example.aichat.data.OllamaAiApi
 import kotlinx.coroutines.launch
 
 class ChatViewModel(
-    private val aiRepository: AiRepository = AiRepository(OllamaAiApi("https://adapted-satyr-strong.ngrok-free.app/api/ollama/"))
+    private val aiRepository: AiRepository = AiRepository(
+        OllamaAiApi("https://adapted-satyr-strong.ngrok-free.app/api/ollama/")
+    )
 ) : ViewModel() {
     private val _messages = mutableStateListOf<ChatMessage>()
     val messages: List<ChatMessage> = _messages
