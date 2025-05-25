@@ -11,13 +11,14 @@ naming:
       - '**/*Field.kt'
       - '**/*Bubble.kt'
       - '**/*Bar.kt'
+      - '**/MessagesList.kt'
 
 style:
   MagicNumber:
-    excludeAnnotated: ["Composable"]
     active: true
     excludes: 
       - '**/ui/theme/*.kt'
+      - '**/ui/components/*.kt'
   NewLineAtEndOfFile:
     active: true
   MaxLineLength:

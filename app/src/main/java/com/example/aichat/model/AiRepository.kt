@@ -42,8 +42,6 @@ class AiRepository(private val aiApi: AiApi) {
                 is SocketTimeoutException -> "Connection timeout"
                 else -> "Network error: ${e.message ?: "Unknown IO error"}"
             }
-        } catch (e: Exception) {
-            "Error: ${e.localizedMessage ?: "Unknown error."}"
         }
     }
 
