@@ -21,10 +21,11 @@ import org.junit.Assert.assertFalse
 class ChatViewModelTest {
     private lateinit var viewModel: ChatViewModel
     private val mockRepository = mockk<AiRepository>()
+    private val testDispatcher = StandardTestDispatcher()
 
     @Before
     fun setup() {
-        Dispatchers.setMain(StandardTestDispatcher())
+        Dispatchers.setMain(testDispatcher)
         viewModel = ChatViewModel(mockRepository)
     }
 
@@ -41,6 +42,8 @@ class ChatViewModelTest {
 
         viewModel.sendMessage(testMessage, "llama3:8b")
 
+        testDispatcher.scheduler.advanceUntilIdle()
+
         val messages = viewModel.messages
         assertEquals(2, messages.size)
         assertEquals(testMessage, messages[0].text)
@@ -51,7 +54,9 @@ class ChatViewModelTest {
 
     @Test
     fun clearMessagesTest() = runTest {
-        viewModel.sendMessage("Test", "llama3")
+        viewModel.sendMessage("Test", "llama3:8b")
+        testDispatcher.scheduler.advanceUntilIdle()
+        
         viewModel.clearMessages()
         assertTrue(viewModel.messages.isEmpty())
     }
