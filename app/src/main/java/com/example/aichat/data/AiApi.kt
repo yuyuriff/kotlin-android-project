@@ -12,14 +12,17 @@ interface AiApi {
 }
 
 data class ChatRequest(
-    val prompt: String
+    val model: String = "llama3:8b",
+    val prompt: String,
+    val context: List<Long> = emptyList(),
 )
 
 data class ChatResponse(
-    val response: String
+    val response: String,
+    val context: List<Long>,
 )
 
-class OllamaAiApi(private val baseUrl: String) : AiApi {
+class OllamaAiApi(private val baseUrl: String): AiApi {
     private val retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(baseUrl)

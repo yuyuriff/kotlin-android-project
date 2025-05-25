@@ -8,20 +8,31 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 class AiRepository(private val aiApi: AiApi) {
-    suspend fun getAiResponse(userMessage: String): String {
+    private var currentContext: List<Long> = emptyList()
+
+    suspend fun getAiResponse(
+        userMessage: String,
+        model: String,
+    ): String {
         return try {
-            val response = aiApi.getResponse(ChatRequest(prompt = userMessage))
+            val response = aiApi.getResponse(
+                ChatRequest(
+                    model = model,
+                    prompt = userMessage,
+                    context = currentContext,
+                )
+            )
 
             when {
                 response.isSuccessful -> {
+                    currentContext = response.body()?.context ?: emptyList()
                     response.body()?.response ?: "Empty response from the server"
                 }
                 response.code() == 503 -> {
                     "Server is temporarily unavailable. Please try again later."
                 }
                 else -> {
-                    val errorBody = response.errorBody()?.string() ?: "Unknown error."
-                    "Server has thrown (${response.code()}): $errorBody"
+                    "Server has thrown error ${response.code()}"
                 }
             }
         } catch (e: IOException) {
@@ -34,5 +45,9 @@ class AiRepository(private val aiApi: AiApi) {
         } catch (e: Exception) {
             "Error: ${e.localizedMessage ?: "Unknown error."}"
         }
+    }
+
+    fun clearContext() {
+        currentContext = emptyList()
     }
 }
