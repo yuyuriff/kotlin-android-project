@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("io.gitlab.arturbosch.detekt")
+    id("kotlin-parcelize")
 }
 
 detekt {
@@ -54,6 +55,10 @@ dependencies {
     implementation(libs.ui)
     implementation(libs.material3)
     implementation(libs.ui.tooling.preview)
+
+    implementation (libs.kotlinx.serialization.json)
+    implementation (libs.androidx.preference.ktx)
+
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
 

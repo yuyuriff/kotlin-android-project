@@ -20,18 +20,27 @@ class ChatViewModel(
     private val _isLoading = mutableStateOf(false)
     val isLoading: State<Boolean> = _isLoading
 
+    fun sendGreeting(text: String) {
+        _messages.add(ChatMessage(text, isUser = false))
+    }
+
     fun sendMessage(
         text: String,
-        model: String,
+        modelInfo: ModelInfo,
     ) {
         if (text.isBlank() || _isLoading.value) return
 
         _messages.add(ChatMessage(text, isUser = true))
         _isLoading.value = true
 
+        val fullPrompt = """
+            ${modelInfo.systemPrompt}
+            User: $text
+        """.trimIndent()
+
         viewModelScope.launch {
             try {
-                val aiResponse = aiRepository.getAiResponse(text, model)
+                val aiResponse = aiRepository.getAiResponse(fullPrompt, modelInfo.apiName)
                 _messages.add(ChatMessage(aiResponse, isUser = false))
             }
             finally {

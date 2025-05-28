@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import com.example.aichat.model.ModelInfo
 import com.example.aichat.ui.components.ChatScreen
@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AiChatTheme {
-                var selectedModel by remember { mutableStateOf<ModelInfo?>(null) }
+                var selectedModel by rememberSaveable { mutableStateOf<ModelInfo?>(null) }
 
                 if (selectedModel == null) {
                     ModelSelectionScreen { model ->

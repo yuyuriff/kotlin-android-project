@@ -16,6 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
@@ -33,7 +34,7 @@ fun ChatScreen(
     modelInfo: ModelInfo,
     onBack: () -> Unit
 ) {
-    var userInput by remember { mutableStateOf("") }
+    var userInput by rememberSaveable { mutableStateOf("") }
     val messages = viewModel.messages
 
     val listState = rememberLazyListState()
@@ -48,6 +49,15 @@ fun ChatScreen(
             coroutineScope.launch {
                 listState.animateScrollToItem(messages.lastIndex)
             }
+        }
+    }
+
+    var hasSentGreeting by rememberSaveable { mutableStateOf(false) }
+
+    LaunchedEffect(modelInfo.apiName) {
+        if (!hasSentGreeting) {
+            viewModel.sendGreeting(modelInfo.greeting)
+            hasSentGreeting = true
         }
     }
 
@@ -87,7 +97,7 @@ fun ChatScreen(
                     onTextChange = { userInput = it },
                     onSend = {
                         if (userInput.isNotBlank()) {
-                            viewModel.sendMessage(userInput, modelInfo.apiName)
+                            viewModel.sendMessage(userInput, modelInfo)
                             userInput = ""
                         }
                     },
