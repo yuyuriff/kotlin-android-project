@@ -55,19 +55,16 @@ fun ChatScreen(
         }
     }
 
-    var hasLoadedSession by rememberSaveable { mutableStateOf(false) }
-
     LaunchedEffect(modelInfo.apiName) {
-        if (!hasLoadedSession) {
+        if (!viewModel.sessionLoaded.value) {
             viewModel.initializeSession(modelInfo)
-            hasLoadedSession = true
         }
     }
 
     DisposableEffect(Unit) {
         onDispose {
             viewModel.saveCurrentSession()
-            viewModel.clearMessages()
+            viewModel.clearCurrentSession()
         }
     }
 
@@ -77,6 +74,7 @@ fun ChatScreen(
         topBar = {
             ChatTopBar(
                 modelInfo = modelInfo,
+                viewModel = viewModel,
                 onBack = onBack,
                 scrollBehavior = pinnedScrollBehavior,
             )

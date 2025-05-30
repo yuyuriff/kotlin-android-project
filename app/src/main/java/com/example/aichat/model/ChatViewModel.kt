@@ -29,7 +29,6 @@ class ChatViewModel(
 
     fun initializeSession(modelInfo: ModelInfo) {
         viewModelScope.launch {
-            _sessionLoaded.value = false
             val session = loadSession(modelInfo.apiName)
 
             if (session == null) {
@@ -52,6 +51,16 @@ class ChatViewModel(
                 _messages.clear()
                 _messages.addAll(session.messages)
             }
+    }
+
+    fun deleteAndRestartSession(modelInfo: ModelInfo) {
+        viewModelScope.launch {
+            currentModelName?.let { modelName ->
+                chatHistory.deleteSession(modelName)
+            }
+            _messages.clear();
+            startNewSession(modelInfo)
+        }
     }
 
     fun saveCurrentSession() {
@@ -96,8 +105,9 @@ class ChatViewModel(
         }
     }
 
-    fun clearMessages() {
+    fun clearCurrentSession() {
         _messages.clear()
         aiRepository.clearContext()
+        _sessionLoaded.value = false
     }
 }
