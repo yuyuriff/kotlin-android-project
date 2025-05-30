@@ -11,6 +11,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -19,18 +20,20 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
 
 import com.example.aichat.model.ChatViewModel
+import com.example.aichat.model.ChatViewModelFactory
 import com.example.aichat.model.ModelInfo
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChatScreen(
-    viewModel: ChatViewModel = viewModel(),
+    viewModel: ChatViewModel = viewModel(factory = ChatViewModelFactory(LocalContext.current)),
     modelInfo: ModelInfo,
     onBack: () -> Unit
 ) {
@@ -52,12 +55,19 @@ fun ChatScreen(
         }
     }
 
-    var hasSentGreeting by rememberSaveable { mutableStateOf(false) }
+    var hasLoadedSession by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(modelInfo.apiName) {
-        if (!hasSentGreeting) {
-            viewModel.sendGreeting(modelInfo.greeting)
-            hasSentGreeting = true
+        if (!hasLoadedSession) {
+            viewModel.initializeSession(modelInfo)
+            hasLoadedSession = true
+        }
+    }
+
+    DisposableEffect(Unit) {
+        onDispose {
+            viewModel.saveCurrentSession()
+            viewModel.clearMessages()
         }
     }
 
@@ -67,7 +77,6 @@ fun ChatScreen(
         topBar = {
             ChatTopBar(
                 modelInfo = modelInfo,
-                viewModel = viewModel,
                 onBack = onBack,
                 scrollBehavior = pinnedScrollBehavior,
             )

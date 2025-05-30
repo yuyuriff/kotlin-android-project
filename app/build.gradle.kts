@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("io.gitlab.arturbosch.detekt")
     id("kotlin-parcelize")
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 detekt {

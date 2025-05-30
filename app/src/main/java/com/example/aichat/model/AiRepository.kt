@@ -9,7 +9,8 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 class AiRepository(private val aiApi: AiApi) {
-    private var currentContext: List<Long> = emptyList()
+    private var _currentContext: List<Long> = emptyList()
+    var currentContext: List<Long> = _currentContext
 
     suspend fun getAiResponse(
         userMessage: String,
@@ -20,13 +21,13 @@ class AiRepository(private val aiApi: AiApi) {
                 ChatRequest(
                     model = model,
                     prompt = userMessage,
-                    context = currentContext,
+                    context = _currentContext,
                 )
             )
 
             when {
                 response.isSuccessful -> {
-                    currentContext = response.body()?.context ?: emptyList()
+                    _currentContext = response.body()?.context ?: emptyList()
                     response.body()?.response ?: "Empty response from the server"
                 }
                 response.code() == HttpURLConnection.HTTP_UNAVAILABLE -> {
@@ -47,6 +48,6 @@ class AiRepository(private val aiApi: AiApi) {
     }
 
     fun clearContext() {
-        currentContext = emptyList()
+        _currentContext = emptyList()
     }
 }

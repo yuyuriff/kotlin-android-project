@@ -19,7 +19,6 @@ import com.example.aichat.model.ModelInfo
 @Composable
 fun ChatTopBar(
     modelInfo: ModelInfo,
-    viewModel: ChatViewModel,
     onBack: () -> Unit,
     scrollBehavior: TopAppBarScrollBehavior,
 ) {
@@ -27,7 +26,6 @@ fun ChatTopBar(
         title = { Text(modelInfo.displayName) },
         navigationIcon = {
             IconButton(onClick = {
-                viewModel.clearMessages()
                 onBack()
             }) {
                 Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back")

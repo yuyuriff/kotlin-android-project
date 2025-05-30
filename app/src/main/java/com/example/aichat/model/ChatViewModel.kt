@@ -6,13 +6,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.aichat.data.ChatMessage
+import com.example.aichat.data.ChatSession
 import com.example.aichat.data.OllamaAiApi
 import kotlinx.coroutines.launch
 
 class ChatViewModel(
     private val aiRepository: AiRepository = AiRepository(
         OllamaAiApi("https://adapted-satyr-strong.ngrok-free.app/api/ollama/")
-    )
+    ),
+    private val chatHistory: ChatHistoryRepository
 ) : ViewModel() {
     private val _messages = mutableStateListOf<ChatMessage>()
     val messages: List<ChatMessage> = _messages
@@ -20,7 +22,52 @@ class ChatViewModel(
     private val _isLoading = mutableStateOf(false)
     val isLoading: State<Boolean> = _isLoading
 
-    fun sendGreeting(text: String) {
+    private var currentModelName: String? = null
+
+    private val _sessionLoaded = mutableStateOf(false)
+    val sessionLoaded: State<Boolean> = _sessionLoaded
+
+    fun initializeSession(modelInfo: ModelInfo) {
+        viewModelScope.launch {
+            _sessionLoaded.value = false
+            val session = loadSession(modelInfo.apiName)
+
+            if (session == null) {
+                startNewSession(modelInfo)
+            }
+
+            _sessionLoaded.value = true
+        }
+    }
+
+    private fun startNewSession(model: ModelInfo) {
+        currentModelName = model.apiName
+        _messages.clear()
+        sendGreeting(model.greeting)
+    }
+
+    private suspend fun loadSession(modelName: String): ChatSession? {
+        return chatHistory.loadSession(modelName)?.also { session ->
+                currentModelName = session.modelName
+                _messages.clear()
+                _messages.addAll(session.messages)
+            }
+    }
+
+    fun saveCurrentSession() {
+        viewModelScope.launch {
+            currentModelName?.let { modelName ->
+                val session = ChatSession(
+                    modelName = modelName,
+                    messages = _messages.toList(),
+                    context = aiRepository.currentContext,
+                )
+                chatHistory.saveSession(session)
+            }
+        }
+    }
+
+    private fun sendGreeting(text: String) {
         _messages.add(ChatMessage(text, isUser = false))
     }
 
