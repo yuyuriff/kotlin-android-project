@@ -7,7 +7,7 @@ plugins {
 }
 
 detekt {
-    ("$rootDir/config/detekt/detekt.yml")
+    ("$projectDir/config/detekt/detekt.yml")
     buildUponDefaultConfig = true
 }
 
