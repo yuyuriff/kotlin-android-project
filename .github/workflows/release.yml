@@ -3,8 +3,8 @@ name: Release
 on:
   workflow_dispatch:
     paths:
-      -'client/**'
-      -'.github/workflows/release.yml'
+      - 'client/**'
+      - '.github/workflows/release.yml'
 
 jobs:
   build-release:
