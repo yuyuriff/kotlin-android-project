@@ -1,10 +1,21 @@
 name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    paths:
+      -'client/**'
+      -'.github/workflows/ci.yml'
+  pull_request:
+    paths:
+      -'client/**'
+      -'.github/workflows/ci.yml'
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v3
