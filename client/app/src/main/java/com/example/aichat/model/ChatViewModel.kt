@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.aichat.data.ChatMessage
 import com.example.aichat.data.ChatSession
+import com.example.aichat.data.ModelInfo
 import com.example.aichat.data.OllamaAiApi
 import kotlinx.coroutines.launch
 

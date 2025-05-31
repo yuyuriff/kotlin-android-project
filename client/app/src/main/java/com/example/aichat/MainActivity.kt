@@ -8,7 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import com.example.aichat.model.ModelInfo
+import com.example.aichat.data.ModelInfo
 import com.example.aichat.ui.components.ChatScreen
 import com.example.aichat.ui.components.ModelSelectionScreen
 import com.example.aichat.ui.theme.AiChatTheme

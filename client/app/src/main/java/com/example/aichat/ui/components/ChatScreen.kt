@@ -28,7 +28,7 @@ import kotlinx.coroutines.launch
 
 import com.example.aichat.model.ChatViewModel
 import com.example.aichat.model.ChatViewModelFactory
-import com.example.aichat.model.ModelInfo
+import com.example.aichat.data.ModelInfo
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

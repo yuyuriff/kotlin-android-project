@@ -1,4 +1,4 @@
-package com.example.aichat.model
+package com.example.aichat.data
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

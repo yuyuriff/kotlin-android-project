@@ -1,15 +1,5 @@
 package com.example.aichat
 
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
-import com.example.aichat.model.ModelInfo
-import com.example.aichat.ui.components.ModelSelectionScreen
-import org.junit.Assert
-import org.junit.Rule
-import org.junit.Test
-
 //class ModelSelectionScreenTest {
 //    @get:Rule
 //    val composeTestRule = createComposeRule()

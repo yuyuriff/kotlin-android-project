@@ -3,7 +3,7 @@ package com.example.aichat
 import com.example.aichat.model.AiRepository
 import com.example.aichat.model.ChatHistoryRepository
 import com.example.aichat.model.ChatViewModel
-import com.example.aichat.model.ModelInfo
+import com.example.aichat.data.ModelInfo
 import io.mockk.Runs
 import io.mockk.coEvery
 import io.mockk.just

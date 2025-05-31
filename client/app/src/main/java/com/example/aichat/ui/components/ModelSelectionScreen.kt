@@ -28,8 +28,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.aichat.model.ModelInfo
-import com.example.aichat.model.availableModels
+import com.example.aichat.data.ModelInfo
+import com.example.aichat.data.availableModels
 
 @Composable
 fun ModelSelectionScreen(
