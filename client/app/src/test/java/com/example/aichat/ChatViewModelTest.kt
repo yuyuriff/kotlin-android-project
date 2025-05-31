@@ -76,6 +76,7 @@ class ChatViewModelTest {
     @Test
     fun clearMessagesTest() = runTest {
         coEvery { mockAiRepository.clearContext() } just Runs
+        coEvery { mockAiRepository.getAiResponse(any(), any()) } returns "ok"
 
         viewModel.sendMessage("Test", modelInfo)
         testDispatcher.scheduler.advanceUntilIdle()
